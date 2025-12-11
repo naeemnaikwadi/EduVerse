@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API = 'http://localhost:4000/api/learning-paths';
+const API = `${process.env.REACT_APP_API_URL || 'http://localhost:4000'}/api/learning-paths`;
 
 // Create a new learning path
 export const createLearningPath = async (data) => {
