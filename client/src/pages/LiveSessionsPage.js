@@ -11,7 +11,7 @@ export default function LiveSessionsPage() {
     const fetchSessions = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('http://localhost:4000/api/live-sessions', {
+        const res = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:4000'}/api/live-sessions`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setSessions(res.data);
