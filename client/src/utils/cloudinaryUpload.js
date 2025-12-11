@@ -89,7 +89,7 @@ export const uploadToCloudinary = async (file, folder = 'smart-learning', resour
       serverFormData.append('folder', folder);
       serverFormData.append('resourceType', resourceType);
 
-      const serverResponse = await fetch('http://localhost:4000/api/upload/single', {
+      const serverResponse = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:4000'}/api/upload/single`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
