@@ -6,7 +6,7 @@ export default function StudentSessions() {
   const [sessions, setSessions] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:4000/api/live-sessions')
+    axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:4000'}/api/live-sessions`)
       .then(res => setSessions(res.data))
       .catch(() => alert('Failed to load sessions'));
   }, []);
