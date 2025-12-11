@@ -253,14 +253,14 @@ export const downloadFile = async (file) => {
         const format = extMatch ? extMatch[1] : undefined;
 
         // Proxy download attempt
-        const proxyUrl = `http://localhost:4000/api/upload/proxy?publicId=${encodeURIComponent(file.cloudinaryId)}&resourceType=raw${format ? `&format=${encodeURIComponent(format)}` : ''}`;
+        const proxyUrl = `${process.env.REACT_APP_API_URL || 'http://localhost:4000'}/api/upload/proxy?publicId=${encodeURIComponent(file.cloudinaryId)}&resourceType=raw${format ? `&format=${encodeURIComponent(format)}` : ''}`;
         let proxyResp = await fetch(proxyUrl, { headers: token ? { 'Authorization': `Bearer ${token}` } : {} });
 
         if (proxyResp.ok) {
           response = proxyResp;
         } else {
           // Private download fallback
-          const dlUrl = `http://localhost:4000/api/upload/private-download?publicId=${encodeURIComponent(file.cloudinaryId)}&resourceType=raw${format ? `&format=${encodeURIComponent(format)}` : ''}`;
+          const dlUrl = `${process.env.REACT_APP_API_URL || 'http://localhost:4000'}/api/upload/private-download?publicId=${encodeURIComponent(file.cloudinaryId)}&resourceType=raw${format ? `&format=${encodeURIComponent(format)}` : ''}`;
           const dlResp = await fetch(dlUrl, { headers: token ? { 'Authorization': `Bearer ${token}` } : {} });
           if (dlResp.ok) {
             const { url: signedUrl } = await dlResp.json();
